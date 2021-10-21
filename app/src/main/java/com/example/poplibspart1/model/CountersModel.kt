@@ -1,4 +1,4 @@
-package com.example.poplibspart1
+package com.example.poplibspart1.model
 
 class CountersModel {
 

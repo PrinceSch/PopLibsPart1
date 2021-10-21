@@ -1,48 +1,46 @@
 package com.example.poplibspart1
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import com.example.poplibspart1.databinding.ActivityMainBinding
+import com.example.poplibspart1.presenter.MainPresenter
+import com.example.poplibspart1.view.AndroidScreens
+import com.example.poplibspart1.view.App
+import com.example.poplibspart1.view.BackButtonListener
+import com.example.poplibspart1.view.MainView
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-var BUTTON_ONE_ID: Int? = 0
-var BUTTON_TWO_ID: Int? = 0
-var BUTTON_THREE_ID: Int? = 0
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private lateinit var vb: ActivityMainBinding
-    private val presenter = MainPresenter(this)
+    val navigator = AppNavigator(this, R.id.container)
+
+    private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
+    private var vb: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb.root)
+        setContentView(vb?.root)
+    }
 
-        val listener = View.OnClickListener {
-            presenter.counterClick(it as Button)
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        App.instance.navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        App.instance.navigatorHolder.removeNavigator()
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.forEach {
+            if(it is BackButtonListener && it.backPressed()){
+                return
+            }
         }
-
-        BUTTON_ONE_ID = vb.btnCounter1.id
-        BUTTON_TWO_ID = vb.btnCounter2.id
-        BUTTON_THREE_ID = vb.btnCounter3.id
-
-        vb.btnCounter1.setOnClickListener(listener)
-        vb.btnCounter2.setOnClickListener(listener)
-        vb.btnCounter3.setOnClickListener(listener)
+        presenter.backClicked()
     }
-
-    override fun setButtonOneText(text: String) {
-        vb.btnCounter1.text = text
-    }
-
-    override fun setButtonTwoText(text: String) {
-        vb.btnCounter2.text = text
-    }
-
-    override fun setButtonThreeText(text: String) {
-        vb.btnCounter3.text = text
-    }
-
 }
