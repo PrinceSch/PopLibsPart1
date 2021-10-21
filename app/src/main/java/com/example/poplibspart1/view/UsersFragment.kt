@@ -20,7 +20,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
             GithubUsersRepo(),
-            App.instance.router
+            App.instance.router, AndroidScreens()
         )
     }
     private lateinit var adapter: UsersRVAdapter
@@ -41,8 +41,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     override fun init() {
