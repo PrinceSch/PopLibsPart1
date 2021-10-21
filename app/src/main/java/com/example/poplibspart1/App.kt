@@ -1,4 +1,4 @@
-package com.example.poplibspart1.view
+package com.example.poplibspart1
 
 import android.app.Application
 import com.github.terrakok.cicerone.Cicerone

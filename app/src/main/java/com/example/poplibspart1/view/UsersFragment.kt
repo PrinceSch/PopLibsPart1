@@ -2,8 +2,10 @@ package com.example.poplibspart1.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.poplibspart1.App
 import com.example.poplibspart1.databinding.FragmentUsersBinding
 import com.example.poplibspart1.model.GithubUsersRepo
 import com.example.poplibspart1.presenter.UsersPresenter
@@ -15,29 +17,42 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter { UsersPresenter(GithubUsersRepo(), App.instance.router) }
-    var adapter: UsersRVAdapter? = null
+    private val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter(
+            GithubUsersRepo(),
+            App.instance.router
+        )
+    }
+    private lateinit var adapter: UsersRVAdapter
 
-    private var vb: FragmentUsersBinding? = null
+    private var _binding: FragmentUsersBinding? = null
+    private val binding: FragmentUsersBinding
+        get() {
+            return _binding!!
+        }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-        FragmentUsersBinding.inflate(inflater, container, false).also {
-            vb = it
-        }.root
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentUsersBinding.inflate(inflater)
+        return binding.root
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        vb = null
+        _binding = null
     }
 
     override fun init() {
-        vb?.rvUsers?.layoutManager = LinearLayoutManager(context)
+        binding.rvUsers.layoutManager = LinearLayoutManager(context)
         adapter = UsersRVAdapter(presenter.usersListPresenter)
-        vb?.rvUsers?.adapter = adapter
+        binding.rvUsers.adapter = adapter
     }
 
     override fun updateList() {
-        adapter?.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
     }
 
     override fun backPressed() = presenter.backPressed()

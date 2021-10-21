@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.example.poplibspart1.databinding.ActivityMainBinding
 import com.example.poplibspart1.presenter.MainPresenter
 import com.example.poplibspart1.view.AndroidScreens
-import com.example.poplibspart1.view.App
 import com.example.poplibspart1.view.BackButtonListener
 import com.example.poplibspart1.view.MainView
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -14,15 +13,14 @@ import moxy.ktx.moxyPresenter
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigator = AppNavigator(this, R.id.container)
-
+    private val navigator = AppNavigator(this, R.id.container)
     private val presenter by moxyPresenter { MainPresenter(App.instance.router, AndroidScreens()) }
-    private var vb: ActivityMainBinding? = null
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     override fun onResumeFragments() {
