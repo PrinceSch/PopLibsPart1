@@ -43,8 +43,9 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        val users = usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
+        usersRepo.getUsers().subscribe {
+            usersListPresenter.users.addAll(it)
+        }
         viewState.updateList()
     }
 
