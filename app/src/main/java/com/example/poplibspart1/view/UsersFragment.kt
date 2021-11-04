@@ -19,7 +19,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private val presenter: UsersPresenter by moxyPresenter {
         UsersPresenter(
-            GithubUsersRepo(),
+            App.instance.repository,
             App.instance.router, AndroidScreens()
         )
     }
@@ -46,9 +46,12 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun init() {
-        binding.rvUsers.layoutManager = LinearLayoutManager(context)
-        adapter = UsersRVAdapter(presenter.usersListPresenter)
-        binding.rvUsers.adapter = adapter
+        with(binding){
+            rvUsers.layoutManager = LinearLayoutManager(context)
+            adapter = UsersRVAdapter(presenter.usersListPresenter)
+            rvUsers.adapter = adapter
+        }
+
     }
 
     override fun updateList() {
