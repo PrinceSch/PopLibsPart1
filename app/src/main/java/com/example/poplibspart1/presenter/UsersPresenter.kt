@@ -6,42 +6,35 @@ import com.example.poplibspart1.view.IScreens
 import com.example.poplibspart1.view.UserItemView
 import com.example.poplibspart1.view.UsersView
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
-class UsersPresenter(
-    private val usersRepo: GithubUsersRepo,
-    private val router: Router,
-    val screens: IScreens
+class UsersPresenter(val uiScheduler: Scheduler,
+                     private val usersRepo: GithubUsersRepo,
+                     private val router: Router,
+                     val screens: IScreens
 ) :
     MvpPresenter<UsersView>() {
 
     class UsersListPresenter : IUserListPresenter {
-        val users = (1..20).map { GithubUser("login $it") }.toMutableList()
+        val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
 
         override fun getCount() = users.size
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login!!)
+            user.login?.let { view.setLogin(it) }
+            user.avatarUrl?.let {view.loadAvatar(it)}
         }
     }
 
     val usersListPresenter = UsersListPresenter()
 
-    private val disposable = usersRepo.getUsers()
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            usersListPresenter.users.clear()
-            usersListPresenter.users.addAll(it)
-            viewState.updateList()
-        }
-
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
+        loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
             router.navigateTo(
@@ -51,9 +44,16 @@ class UsersPresenter(
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.dispose()
+    private fun loadData() {
+        usersRepo.getUsers()
+            .observeOn(uiScheduler)
+            .subscribe({ repos ->
+                usersListPresenter.users.clear()
+                usersListPresenter.users.addAll(repos)
+                viewState.updateList()
+            }, {
+                println("Error: ${it.message}")
+            })
     }
 
 

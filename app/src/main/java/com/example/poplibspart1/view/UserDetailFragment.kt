@@ -19,13 +19,7 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
             return _binding!!
         }
 
-    private val presenter: UserDetailPresenter by moxyPresenter {
-        UserDetailPresenter(
-            App.instance.router
-        )
-    }
-
-    private lateinit var userBundle: GithubUser
+    private val userBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: GithubUser()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,15 +30,24 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
         return binding.root
     }
 
+    private val presenter: UserDetailPresenter by moxyPresenter {
+        UserDetailPresenter(
+            App.instance.router, userBundle
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userBundle = arguments?.getParcelable(BUNDLE_EXTRA) ?: GithubUser()
-        binding.detailLogin.text = userBundle.login
+        setLogin()
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun setLogin() {
+        binding.detailLogin.text = userBundle.login
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()

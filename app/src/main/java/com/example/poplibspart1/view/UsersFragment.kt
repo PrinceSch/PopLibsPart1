@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.poplibspart1.App
 import com.example.poplibspart1.databinding.FragmentUsersBinding
-import com.example.poplibspart1.model.GithubUsersRepo
 import com.example.poplibspart1.presenter.UsersPresenter
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -18,7 +18,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     private val presenter: UsersPresenter by moxyPresenter {
-        UsersPresenter(
+        UsersPresenter( AndroidSchedulers.mainThread(),
             App.instance.repository,
             App.instance.router, AndroidScreens()
         )
@@ -48,7 +48,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     override fun init() {
         with(binding){
             rvUsers.layoutManager = LinearLayoutManager(context)
-            adapter = UsersRVAdapter(presenter.usersListPresenter)
+            adapter = UsersRVAdapter(presenter.usersListPresenter, GlideImageLoader())
             rvUsers.adapter = adapter
         }
 
