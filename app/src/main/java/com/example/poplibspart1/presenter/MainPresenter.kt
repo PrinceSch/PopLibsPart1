@@ -1,7 +1,7 @@
 package com.example.poplibspart1.presenter
 
-import com.example.poplibspart1.view.IScreens
-import com.example.poplibspart1.view.MainView
+import com.example.poplibspart1.view.interfaces.IScreens
+import com.example.poplibspart1.view.interfaces.MainView
 import com.github.terrakok.cicerone.Router
 import moxy.MvpPresenter
 

@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.poplibspart1.App
 import com.example.poplibspart1.databinding.FragmentUsersBinding
 import com.example.poplibspart1.presenter.UsersPresenter
+import com.example.poplibspart1.view.interfaces.BackButtonListener
+import com.example.poplibspart1.view.interfaces.UsersView
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter

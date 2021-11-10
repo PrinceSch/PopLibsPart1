@@ -1,16 +1,16 @@
 package com.example.poplibspart1.presenter
 
 import com.example.poplibspart1.model.GithubUser
-import com.example.poplibspart1.model.GithubUsersRepo
-import com.example.poplibspart1.view.IScreens
-import com.example.poplibspart1.view.UserItemView
-import com.example.poplibspart1.view.UsersView
+import com.example.poplibspart1.model.GithubAPI
+import com.example.poplibspart1.view.interfaces.IScreens
+import com.example.poplibspart1.view.interfaces.UserItemView
+import com.example.poplibspart1.view.interfaces.UsersView
 import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 
 class UsersPresenter(val uiScheduler: Scheduler,
-                     private val usersRepo: GithubUsersRepo,
+                     private val usersRepo: GithubAPI,
                      private val router: Router,
                      val screens: IScreens
 ) :

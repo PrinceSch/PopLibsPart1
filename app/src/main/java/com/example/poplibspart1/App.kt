@@ -1,7 +1,8 @@
 package com.example.poplibspart1
 
 import android.app.Application
-import com.example.poplibspart1.model.GithubUsersRepo
+import com.example.poplibspart1.model.GitHubRepository
+import com.example.poplibspart1.model.GithubAPI
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 
@@ -10,7 +11,7 @@ class App : Application() {
         lateinit var instance: App
     }
 
-    val repository = GithubUsersRepo()
+    val repository = GithubAPI()
 
     //Временно до даггера положим это тут
     private val cicerone: Cicerone<Router> by lazy {

@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.example.poplibspart1.databinding.ActivityMainBinding
 import com.example.poplibspart1.presenter.MainPresenter
 import com.example.poplibspart1.view.AndroidScreens
-import com.example.poplibspart1.view.BackButtonListener
-import com.example.poplibspart1.view.MainView
+import com.example.poplibspart1.view.interfaces.BackButtonListener
+import com.example.poplibspart1.view.interfaces.MainView
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter

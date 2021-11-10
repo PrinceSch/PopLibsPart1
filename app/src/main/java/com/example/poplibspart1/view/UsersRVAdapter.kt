@@ -6,6 +6,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.poplibspart1.databinding.ItemUserBinding
 import com.example.poplibspart1.presenter.IUserListPresenter
+import com.example.poplibspart1.view.interfaces.IImageLoader
+import com.example.poplibspart1.view.interfaces.UserItemView
 
 class UsersRVAdapter(val presenter: IUserListPresenter, val imageLoader: IImageLoader<ImageView>) :
     RecyclerView.Adapter<UsersRVAdapter.ViewHolder>() {

@@ -17,5 +17,5 @@ class RetrofitKeeper {
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
-    val api = retrofit.create(GitHub::class.java)
+    val api: GitHub = retrofit.create(GitHub::class.java)
 }

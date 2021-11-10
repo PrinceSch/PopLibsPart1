@@ -3,4 +3,6 @@
     <dimen name="defaultMargin">16dp</dimen>
     <dimen name="itemUserHeight">50dp</dimen>
     <dimen name="itemUserAvatarSize">50dp</dimen>
+    <dimen name="repoNameSize">40sp</dimen>
+    <dimen name="detailImageSize">100dp</dimen>
 </resources>
