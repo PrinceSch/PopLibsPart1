@@ -1,4 +1,4 @@
-package com.example.poplibspart1.view
+package com.example.poplibspart1.view.interfaces
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

@@ -1,17 +1,18 @@
 package com.example.poplibspart1.presenter
 
 import com.example.poplibspart1.model.GithubUser
-import com.example.poplibspart1.model.GithubUsersRepo
-import com.example.poplibspart1.view.IScreens
-import com.example.poplibspart1.view.UserItemView
-import com.example.poplibspart1.view.UsersView
+import com.example.poplibspart1.model.GithubAPI
+import com.example.poplibspart1.view.interfaces.IScreens
+import com.example.poplibspart1.view.interfaces.UserItemView
+import com.example.poplibspart1.view.interfaces.UsersView
 import com.github.terrakok.cicerone.Router
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 
-class UsersPresenter(
-    private val usersRepo: GithubUsersRepo,
-    private val router: Router,
-    val screens: IScreens
+class UsersPresenter(val uiScheduler: Scheduler,
+                     private val usersRepo: GithubAPI,
+                     private val router: Router,
+                     val screens: IScreens
 ) :
     MvpPresenter<UsersView>() {
 
@@ -23,7 +24,8 @@ class UsersPresenter(
 
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            user.login?.let { view.setLogin(it) }
+            user.avatarUrl?.let {view.loadAvatar(it)}
         }
     }
 
@@ -43,11 +45,17 @@ class UsersPresenter(
     }
 
     private fun loadData() {
-        usersRepo.getUsers().subscribe {
-            usersListPresenter.users.addAll(it)
-        }
-        viewState.updateList()
+        usersRepo.getUsers()
+            .observeOn(uiScheduler)
+            .subscribe({ repos ->
+                usersListPresenter.users.clear()
+                usersListPresenter.users.addAll(repos)
+                viewState.updateList()
+            }, {
+                println("Error: ${it.message}")
+            })
     }
+
 
     fun backPressed(): Boolean {
         router.exit()

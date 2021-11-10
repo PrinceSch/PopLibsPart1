@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/defaultMargin"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/detailAvatar"
+        android:layout_width="@dimen/detailImageSize"
+        android:layout_height="@dimen/detailImageSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:textSize="@dimen/repoNameSize"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerDetail"
+        app:layout_constraintStart_toEndOf="@+id/detailAvatar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="@dimen/defaultMargin"
-        android:gravity="center"
-        android:textSize="@dimen/itemUserHeight" />
+        android:clipToPadding="false"
+        android:padding="@dimen/defaultMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailAvatar" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

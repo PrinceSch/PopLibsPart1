@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/defaultMargin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/detailRepoName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/repoNameSize"
+        android:textColor="@color/accentTextColor"/>
+
+    <TextView
+        android:id="@+id/detailRepoDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailRepoName"
+        android:textColor="@color/defTextColor"
+        android:textSize="26sp"
+        android:gravity="center" />
+
+    <View
+        android:id="@+id/detailRepoLine"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@drawable/line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailRepoDescription"/>
+
+    <TextView
+        android:id="@+id/detailRepoCreated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/defaultMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailRepoLine"
+        android:textColor="@color/defTextColor" />
+
+    <TextView
+        android:id="@+id/detailRepoForks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/defTextColor"
+        app:layout_constraintEnd_toStartOf="@+id/detailRepoWatchers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailRepoCreated" />
+
+    <TextView
+        android:id="@+id/detailRepoWatchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detailRepoCreated"
+        app:layout_constraintStart_toEndOf="@id/detailRepoForks"
+        android:textColor="@color/defTextColor" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
