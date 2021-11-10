@@ -9,7 +9,6 @@
         android:id="@+id/detailRepoName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="asteroids"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,8 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/detailRepoName"
         android:textColor="@color/defTextColor"
         android:textSize="26sp"
-        android:gravity="center"
-        android:text="Destroy your Atom editor, Asteroids style!" />
+        android:gravity="center" />
 
     <View
         android:id="@+id/detailRepoLine"
@@ -45,14 +43,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailRepoLine"
-        android:textColor="@color/defTextColor"
-        android:text="created_at: 2014-03-03T07:40:00Z" />
+        android:textColor="@color/defTextColor" />
 
     <TextView
         android:id="@+id/detailRepoForks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="forks_count: 13"
         android:textColor="@color/defTextColor"
         app:layout_constraintEnd_toStartOf="@+id/detailRepoWatchers"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/detailRepoCreated"
         app:layout_constraintStart_toEndOf="@id/detailRepoForks"
-        android:textColor="@color/defTextColor"
-        android:text="watchers_count: 93" />
+        android:textColor="@color/defTextColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
