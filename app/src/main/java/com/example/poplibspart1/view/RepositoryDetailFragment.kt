@@ -10,7 +10,6 @@ import com.example.poplibspart1.model.GitHubRepository
 import com.example.poplibspart1.presenter.RepositoryDetailPresenter
 import com.example.poplibspart1.view.interfaces.BackButtonListener
 import com.example.poplibspart1.view.interfaces.RepositoryDetailView
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 

@@ -3,7 +3,6 @@ package com.example.poplibspart1.presenter
 import com.example.poplibspart1.model.GitHubRepository
 import com.example.poplibspart1.view.interfaces.RepositoryDetailView
 import com.github.terrakok.cicerone.Router
-import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 
 class RepositoryDetailPresenter (private val router: Router) :

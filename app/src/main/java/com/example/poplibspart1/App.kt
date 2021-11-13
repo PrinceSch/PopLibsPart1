@@ -3,6 +3,8 @@ package com.example.poplibspart1
 import android.app.Application
 import com.example.poplibspart1.model.GitHubRepository
 import com.example.poplibspart1.model.GithubAPI
+import com.example.poplibspart1.model.database.Database
+import com.example.poplibspart1.view.AndroidNetworkStatus
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Router
 
@@ -10,7 +12,7 @@ class App : Application() {
     companion object {
         lateinit var instance: App
     }
-
+    private val networkStatus = AndroidNetworkStatus(this)
     val repository = GithubAPI()
 
     //Временно до даггера положим это тут
@@ -23,5 +25,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        Database.create(this)
     }
 }
